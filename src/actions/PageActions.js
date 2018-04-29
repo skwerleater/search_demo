@@ -1,36 +1,36 @@
 import {
-  REQUEST_POKEMONS,
-  RECEIVE_POKEMONS,
-  FILTER_POKEMONS
+  REQUEST_CHARACTERS,
+  RECEIVE_CHARACTERS,
+  FILTER_CHARACTERS
 } from '../constants/Page'
 
-function requestPokemons() {
+function requestCharacters() {
   return {
-    type: REQUEST_POKEMONS
+    type: REQUEST_CHARACTERS
   }
 }
 
-function receivePokemons(json) {
+function receiveCharacters(json) {
   return {
-    type: RECEIVE_POKEMONS,
-    pokemons: json.results
+    type: RECEIVE_CHARACTERS,
+    characters: json.results
   }
 }
 
-export function fetchPokemons() {
+export function fetchCharacters() {
 
   return dispatch => {
-    dispatch(requestPokemons())
-    return fetch(`https://pokeapi.co/api/v2/pokemon/?limit=784`)
+    dispatch(requestCharacters())
+    return fetch(`https://rickandmortyapi.com/api/character`)
       .then(response => response.json())
-      .then(json => dispatch(receivePokemons(json)))
+      .then(json => dispatch(receiveCharacters(json)))
   }
 
 }
 
-export function filterPokemons(searchTerm) {
+export function filterCharacters(searchTerm) {
   return {
-    type: FILTER_POKEMONS,
+    type: FILTER_CHARACTERS,
     searchTerm
   }
 }

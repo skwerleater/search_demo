@@ -1,36 +1,36 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import Pokemon from '../components/Pokemon'
+import Character from '../components/Character'
 import Search from '../components/Search'
 import * as pageActions from '../actions/PageActions'
 
 class Page extends Component {
   componentDidMount() {
-    this.props.pageActions.fetchPokemons()
+    this.props.pageActions.fetchCharacters()
   }
 
   handleSearch(e) {
-    this.props.pageActions.filterPokemons(e.target.value)
+    this.props.pageActions.filterCharacters(e.target.value)
   }
 
   render() {
-    let { displayedPokemons, isFetched } = this.props.page
+    let { displayedCharacters, isFetched } = this.props.page
 
-    let pokemons = displayedPokemons.map((pokemon, index) => {
-      return <Pokemon pokemon={pokemon} key={index} />
+    let characters = displayedCharacters.map((character, index) => {
+      return <Character character={character} key={index} />
     })
 
     return (
-      <div className="pokemons__wrapper">
+      <div className="characters__wrapper">
         <Search onChange={this.handleSearch.bind(this)} />
-        <ul className="pokemons">
+        <ul className="characters">
           {
             isFetched
             ?
             <p>Loading...</p>
             :
-            pokemons
+            characters
           }
         </ul>
       </div>

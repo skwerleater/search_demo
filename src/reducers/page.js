@@ -1,51 +1,52 @@
 import {
-  REQUEST_POKEMONS,
-  RECEIVE_POKEMONS,
-  FILTER_POKEMONS
+  REQUEST_CHARACTERS,
+  RECEIVE_CHARACTERS,
+  FILTER_CHARACTERS
 } from '../constants/Page'
 
 const initialState = {
   isFetched: false,
-  pokemons: [],
-  displayedPokemons: []
+  characters: [],
+  displayedCharacters: []
 }
 
-export default function pokemon(state = initialState, action) {
+export default function character(state = initialState, action) {
 
   switch (action.type) {
-    case REQUEST_POKEMONS:
+    case REQUEST_CHARACTERS:
       return {
         ...state,
         isFetched: true
       }
 
-    case RECEIVE_POKEMONS:
-      let pokemons = action.pokemons.map(pokemon => {
-        let { url } = pokemon
-        pokemon.id = url.substring(34, url.length - 1)
-
-        return pokemon
+    case RECEIVE_CHARACTERS:
+      let characters = action.characters.map(character => {
+        let { url } = character
+        character.id = url.substring(34, url.length - 1)
+        return character
       })
 
       return {
         ...state,
-        pokemons,
-        displayedPokemons: pokemons.slice(0, 60),
+        characters,
+        displayedCharacters: characters.slice(0, 60),
         isFetched: false
       }
 
-    case FILTER_POKEMONS:
-      let displayedPokemons = state.pokemons.filter(pokemon => {
-        if (pokemon.name.includes(action.searchTerm.toLowerCase())) {
+    case FILTER_CHARACTERS:
+      let displayedCharacters = state.characters.filter(character => {
+        if (character.name.toLowerCase().includes(action.searchTerm.toLowerCase())) {
           return true
         }
-
+          if (character.origin.name.toLowerCase().includes(action.searchTerm.toLowerCase())) {
+              return true
+          }
         return false
       }).slice(0, 60)
 
       return {
         ...state,
-        displayedPokemons
+        displayedCharacters
       }
 
     default:

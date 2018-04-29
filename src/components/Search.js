@@ -4,7 +4,7 @@ const Search = ({ onChange }) => (
   <input
     type="text"
     onChange={onChange}
-    placeholder="Enter pokemon name..."
+    placeholder="Enter search term..."
   />
 )
 
